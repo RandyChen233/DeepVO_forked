@@ -8,8 +8,8 @@ class Parameters():
 		self.image_dir = self.data_dir + '/images/'
 		self.pose_dir = self.data_dir + '/pose_GT/'
 		
-		self.train_video = ['00', '02', '08' ]
-		self.valid_video = ['04']
+		self.train_video = ['00','01','02','05', '08','09' ]
+		self.valid_video = ['04','06','07','10']
 		self.partition = None  # partition videos in 'train_video' to train / valid dataset  #0.8
 		
 		# Data Preprocessing
@@ -40,7 +40,7 @@ class Parameters():
 		# Training
 		self.epochs = 250
 		# self.batch_size = 8
-		self.batch_size = 4
+		self.batch_size = 8
 		self.pin_mem = True
 		self.optim = {'opt': 'Adagrad', 'lr': 0.0005}
 					# Choice:

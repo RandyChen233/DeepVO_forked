@@ -13,6 +13,9 @@ from torch.utils.data import DataLoader
 from helper import eulerAnglesToRotationMatrix
 import torch.nn as nn
 
+
+torch.cuda.empty_cache()
+
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 def fgsm(model, X, y, epsilon):
