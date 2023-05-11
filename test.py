@@ -17,7 +17,7 @@ import torch.nn as nn
 torch.cuda.empty_cache()
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
+torch.cuda.memory_summary(device=None, abbreviated=False)
 def fgsm(model, X, y, epsilon):
     """ Construct FGSM adversarial examples on the examples X"""
     model.train()
@@ -26,6 +26,23 @@ def fgsm(model, X, y, epsilon):
     loss = model.get_loss(X+delta, y)
     loss.backward()
     return epsilon * delta.grad.detach().sign() #returns the delta perturbation
+
+def pgd_linf(model, X, y, epsilon=0.3, alpha=0.01, num_iter=20, randomize=False):
+    """ Construct FGSM adversarial examples on the examples X"""
+    model.train()
+    if randomize:
+        delta = torch.rand_like(X, requires_grad=True)
+        delta.data = delta.data * 2 * epsilon - epsilon
+    else:
+        delta = torch.zeros_like(X, requires_grad=True)
+        
+    for t in range(num_iter):
+        # loss = nn.CrossEntropyLoss()(model(X + delta), y)
+        loss = model.get_loss(X+delta, y)
+        loss.backward()
+        delta.data = (delta + alpha*delta.grad.detach().sign()).clamp(-epsilon,epsilon)
+        delta.grad.zero_()
+    return delta.detach()
 
 def epoch_adversarial(model, loader, attack, *args):
     model.train()
@@ -100,9 +117,12 @@ if __name__ == '__main__':
     
 			if adversarial_attack:
 				# print(f'x has shape{x.shape}, y has shape {y.shape}')
-				delta = fgsm(M_deepvo, x, y, 1.0)
+				# delta = fgsm(M_deepvo, x, y, 1.0)
+				delta = pgd_linf(M_deepvo, x, y)
+				# print(f'x has shape {x.shape}, y has shape {y.shape}')
 				batch_predict_pose = M_deepvo.forward(x + delta)
-    
+				# print(torch.min(x+delta), torch.max(x+delta))
+				
 			else:
 				
 				batch_predict_pose = M_deepvo.forward(x)

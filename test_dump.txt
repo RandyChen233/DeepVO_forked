@@ -1,164 +1,164 @@
 
 ==================================================
 Batch: 0
- 0 0 tensor([-0.0119,  0.0023,  0.0069, -0.0023, -0.0194,  1.2994], device='cuda:0',
+ 0 0 tensor([ 0.0185,  0.0196, -0.0102,  0.0044, -0.0452,  1.8980], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 0 1 tensor([ 3.7323e-04,  9.4625e-03,  4.9218e-04,  8.0307e-04, -1.8333e-02,
-         1.1957e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 0 2 tensor([ 0.0027,  0.0018,  0.0011,  0.0172, -0.0251,  0.9843], device='cuda:0',
+ 0 1 tensor([-1.5619e-02,  9.5661e-03, -2.8634e-04, -2.7218e-02, -3.0876e-02,
+         1.9971e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 0 2 tensor([ 0.0106, -0.0063,  0.0047,  0.0047, -0.0402,  1.9956], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 0 3 tensor([ 1.0468e-02, -7.8330e-04,  4.8300e-03,  1.9929e-02, -1.5792e-02,
-         8.9398e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 0 4 tensor([ 0.0040,  0.0040,  0.0013,  0.0134, -0.0141,  0.8104], device='cuda:0',
+ 0 3 tensor([-0.0020, -0.0039,  0.0130,  0.0116, -0.0102,  1.5666], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 1 0 tensor([-0.0054,  0.0015, -0.0030, -0.0127, -0.0115,  0.5277], device='cuda:0',
+ 0 4 tensor([-0.0022, -0.0049, -0.0018, -0.0056, -0.0221,  1.3840], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 1 1 tensor([-5.5144e-03, -4.2238e-04, -3.5966e-04, -1.7206e-02, -1.2206e-02,
-         6.1763e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 1 2 tensor([-0.0024, -0.0032, -0.0024, -0.0037, -0.0152,  0.8569], device='cuda:0',
+ 1 0 tensor([-0.0096,  0.0175,  0.0053, -0.0278, -0.0411,  1.8573], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 1 3 tensor([-5.8615e-03, -2.1343e-03,  2.1970e-04, -2.6214e-03, -2.1728e-02,
-         6.2408e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 1 4 tensor([-0.0033, -0.0021, -0.0022, -0.0119, -0.0154,  0.6658], device='cuda:0',
+ 1 1 tensor([-0.0044,  0.0038, -0.0049, -0.0087, -0.0489,  1.7355], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 2 0 tensor([ 9.8039e-04,  2.1037e-03,  5.0209e-03, -2.3412e-03, -2.4543e-02,
-         1.0099e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 2 1 tensor([ 0.0045,  0.0052,  0.0015,  0.0053, -0.0132,  1.0036], device='cuda:0',
+ 1 2 tensor([ 0.0043,  0.0018, -0.0048,  0.0061, -0.0397,  1.6964], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 2 2 tensor([-5.5557e-03,  2.0416e-03, -3.7147e-04, -7.8705e-03, -8.0659e-03,
-         6.8461e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 2 3 tensor([ 1.4349e-03, -2.5747e-03,  4.0727e-04, -1.8996e-02, -9.7509e-03,
-         8.0827e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 2 4 tensor([-0.0036,  0.0018, -0.0031, -0.0258, -0.0143,  0.9737], device='cuda:0',
+ 1 3 tensor([ 0.0118, -0.0018,  0.0026, -0.0028, -0.0267,  1.7102], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 3 0 tensor([-0.0012, -0.0043,  0.0020, -0.0185, -0.0125,  0.7605], device='cuda:0',
+ 1 4 tensor([ 8.6575e-03,  2.8995e-03, -1.1587e-03,  1.4715e-02, -4.0301e-02,
+         1.5759e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 2 0 tensor([-0.0047,  0.0047,  0.0022, -0.0129, -0.0290,  1.5851], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 3 1 tensor([-4.1274e-03, -2.6868e-04,  1.9194e-03, -1.8949e-02, -1.5764e-02,
-         8.7530e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 3 2 tensor([-2.9758e-03,  1.9425e-03, -3.7575e-04, -1.4781e-02, -2.6201e-02,
-         9.7627e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 3 3 tensor([-7.1933e-04,  2.9107e-03, -3.3348e-03, -1.3594e-02, -2.3437e-02,
-         1.0602e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 3 4 tensor([-9.2262e-03, -6.0084e-03,  4.4873e-03, -9.5052e-04, -1.9619e-02,
-         9.5129e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 4 0 tensor([ 2.3169e-03, -5.7369e-03, -2.1664e-04, -3.4636e-03, -1.1782e-02,
-         1.2410e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 4 1 tensor([-8.9836e-03, -1.1019e-02, -1.7112e-03, -3.8710e-04, -1.6760e-02,
-         8.9007e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 4 2 tensor([-0.0041, -0.0037, -0.0042, -0.0078, -0.0243,  1.2342], device='cuda:0',
+ 2 1 tensor([-1.2539e-02, -5.7599e-04,  1.2173e-02, -1.6047e-02, -3.5743e-02,
+         1.4491e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 2 2 tensor([ 0.0065,  0.0116,  0.0029,  0.0066, -0.0232,  1.8771], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 4 3 tensor([ 1.2759e-03, -3.0214e-04,  3.9377e-03,  2.8472e-03, -1.0456e-02,
-         1.1065e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 4 4 tensor([-4.7818e-04,  7.5262e-04, -4.1160e-03, -1.6761e-02, -5.5015e-03,
-         1.1026e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 5 0 tensor([-0.0056, -0.0114, -0.0016, -0.0106, -0.0104,  1.2324], device='cuda:0',
+ 2 3 tensor([-5.3198e-03,  2.3797e-03,  7.5860e-04,  3.2629e-02, -3.4049e-02,
+         1.6970e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 2 4 tensor([ 0.0042, -0.0156, -0.0029,  0.0155, -0.0334,  1.4430], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 5 1 tensor([ 4.5704e-04,  5.4604e-03,  2.7482e-03, -1.6223e-02, -9.5970e-03,
-         1.1651e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 5 2 tensor([-0.0099,  0.0058,  0.0045, -0.0133, -0.0211,  1.3573], device='cuda:0',
+ 3 0 tensor([-0.0028, -0.0022,  0.0087, -0.0025, -0.0299,  1.5076], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 5 3 tensor([-0.0099,  0.0027,  0.0072, -0.0213, -0.0282,  1.3393], device='cuda:0',
+ 3 1 tensor([-0.0044, -0.0050, -0.0032,  0.0148, -0.0444,  1.6868], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 5 4 tensor([-0.0146, -0.0088, -0.0076, -0.0049, -0.0330,  1.1683], device='cuda:0',
+ 3 2 tensor([ 0.0057,  0.0023, -0.0018,  0.0140, -0.0238,  1.1663], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 6 0 tensor([-0.0014,  0.0020, -0.0053, -0.0024, -0.0288,  1.2532], device='cuda:0',
+ 3 3 tensor([-1.4129e-03, -6.0976e-03, -6.7983e-03,  4.0352e-03, -3.8918e-02,
+         1.7270e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 3 4 tensor([ 5.7184e-03, -2.2188e-04,  7.3917e-03,  7.1719e-03, -1.8753e-02,
+         1.6077e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 4 0 tensor([ 0.0112,  0.0059,  0.0028, -0.0280, -0.0199,  1.9361], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 6 1 tensor([-4.3493e-03,  8.5829e-04, -4.1406e-03, -1.5727e-02, -1.8333e-02,
-         1.1037e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 6 2 tensor([-0.0042,  0.0046, -0.0023,  0.0114, -0.0225,  1.1047], device='cuda:0',
+ 4 1 tensor([ 0.0070,  0.0041,  0.0047, -0.0022, -0.0272,  1.9747], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 6 3 tensor([-0.0026,  0.0019, -0.0031, -0.0039, -0.0167,  1.0086], device='cuda:0',
+ 4 2 tensor([ 0.0136, -0.0058,  0.0068,  0.0110, -0.0453,  1.7551], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 6 4 tensor([-0.0041,  0.0045,  0.0025, -0.0057, -0.0236,  0.8733], device='cuda:0',
+ 4 3 tensor([-1.4618e-03,  1.5371e-02, -1.5217e-02, -3.4276e-03, -2.5262e-02,
+         1.8101e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 4 4 tensor([ 0.0041,  0.0064, -0.0066,  0.0400, -0.0029,  1.9175], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 7 0 tensor([ 4.1315e-03, -7.2715e-04, -3.7508e-03, -2.3558e-02, -1.1721e-02,
-         1.2757e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 7 1 tensor([-2.2221e-03,  5.4095e-03, -5.8989e-04, -6.5415e-04, -2.6368e-02,
-         1.1275e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 7 2 tensor([-1.0190e-03, -3.4523e-04, -2.4580e-03, -9.4004e-04, -2.4169e-02,
-         1.0327e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 7 3 tensor([-4.8224e-03, -8.2240e-05,  4.1206e-04,  3.0276e-04, -9.6390e-03,
-         8.8419e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 7 4 tensor([ 0.0031,  0.0039,  0.0016,  0.0054, -0.0137,  0.8185], device='cuda:0',
+ 5 0 tensor([-1.0510e-03,  1.7759e-03,  5.2002e-03,  2.6951e-02, -2.1416e-02,
+         1.6591e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 5 1 tensor([ 6.1439e-04,  8.0881e-03,  1.2986e-02,  1.5366e-02, -3.1575e-02,
+         1.6569e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 5 2 tensor([-6.1860e-03, -1.5688e-03, -1.7961e-03,  7.7062e-03, -5.3683e-02,
+         1.7660e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 5 3 tensor([ 0.0031,  0.0057,  0.0158, -0.0035, -0.0389,  1.5831], device='cuda:0',
        grad_fn=<UnbindBackward0>)
+ 5 4 tensor([-7.7408e-04, -5.4634e-03, -1.2442e-02,  8.0888e-03, -1.9052e-02,
+         2.0137e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 6 0 tensor([-1.8886e-04, -2.5535e-04,  1.2432e-02, -3.8850e-02, -2.2704e-02,
+         1.8903e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 6 1 tensor([ 0.0033,  0.0022,  0.0058, -0.0109, -0.0326,  1.7290], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 6 2 tensor([ 0.0115, -0.0132, -0.0020,  0.0167, -0.0397,  1.5301], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 6 3 tensor([-0.0018, -0.0075,  0.0040,  0.0331, -0.0209,  1.6905], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 6 4 tensor([-0.0018,  0.0104, -0.0022,  0.0106, -0.0265,  1.7237], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 7 0 tensor([ 0.0024, -0.0061, -0.0017,  0.0164, -0.0368,  1.6792], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 7 1 tensor([ 0.0118, -0.0021,  0.0043, -0.0045, -0.0301,  1.9185], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 7 2 tensor([ 1.2517e-03, -1.5486e-02,  9.8009e-04,  2.2261e-02, -3.3444e-02,
+         1.5663e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 7 3 tensor([ 0.0046,  0.0027, -0.0087,  0.0483, -0.0410,  1.6429], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 7 4 tensor([ 7.8580e-03,  6.1001e-04,  2.0687e-03,  3.8000e-02, -3.1225e-02,
+         1.7736e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
 Batch: 1
- 0 0 tensor([-0.0110, -0.0026, -0.0015, -0.0242, -0.0132,  1.2776], device='cuda:0',
+ 0 0 tensor([ 0.0071,  0.0056,  0.0091,  0.0250, -0.0261,  1.6082], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 0 1 tensor([-3.5456e-04, -1.5563e-03,  3.7691e-05,  2.7956e-03, -7.2711e-03,
-         1.1369e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 0 2 tensor([ 0.0033, -0.0020,  0.0028,  0.0025, -0.0192,  1.0570], device='cuda:0',
+ 0 1 tensor([ 0.0061, -0.0134, -0.0029,  0.0159, -0.0347,  1.6998], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 0 3 tensor([ 1.6256e-03,  6.8457e-04, -1.7906e-03,  1.4247e-02, -1.5879e-02,
-         8.6427e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 0 4 tensor([-4.2522e-04,  2.1557e-04, -1.9518e-03,  6.7544e-03, -1.3181e-02,
-         8.7790e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 1 0 tensor([ 0.0138, -0.0022,  0.0017, -0.0078, -0.0212,  1.1069], device='cuda:0',
+ 0 2 tensor([ 0.0088, -0.0077, -0.0018,  0.0049, -0.0399,  1.7377], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 1 1 tensor([ 4.1116e-03, -7.9174e-04,  6.7753e-03,  1.9194e-02, -1.9558e-02,
-         8.6378e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 1 2 tensor([ 0.0041,  0.0022, -0.0036,  0.0077, -0.0157,  0.8609], device='cuda:0',
+ 0 3 tensor([-1.2591e-03, -2.6331e-03, -4.1198e-03,  7.1601e-03, -3.3282e-02,
+         1.6540e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 0 4 tensor([ 0.0130, -0.0053,  0.0026,  0.0568, -0.0310,  1.4489], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 1 3 tensor([ 0.0042, -0.0066, -0.0039,  0.0061, -0.0228,  1.0037], device='cuda:0',
+ 1 0 tensor([ 0.0078,  0.0028, -0.0081,  0.0423, -0.0369,  1.5449], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 1 4 tensor([ 0.0068,  0.0020, -0.0017,  0.0151, -0.0227,  1.0068], device='cuda:0',
+ 1 1 tensor([-0.0059, -0.0025, -0.0096,  0.0049, -0.0579,  1.5988], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 2 0 tensor([-0.0031,  0.0039, -0.0012, -0.0176, -0.0198,  1.0389], device='cuda:0',
+ 1 2 tensor([ 0.0121,  0.0030, -0.0139,  0.0090, -0.0333,  1.7733], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 2 1 tensor([-9.0456e-04,  3.4051e-03,  4.7829e-03,  2.1721e-03, -2.6689e-02,
-         1.0225e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 2 2 tensor([ 4.4879e-03, -4.3108e-04, -5.1910e-03,  6.6658e-03, -1.3980e-02,
-         9.9658e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 2 3 tensor([ 0.0125, -0.0016, -0.0048,  0.0203, -0.0169,  1.0031], device='cuda:0',
+ 1 3 tensor([ 0.0213,  0.0052,  0.0036,  0.0174, -0.0304,  1.8026], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 2 4 tensor([ 0.0036,  0.0015, -0.0037,  0.0054, -0.0121,  1.1023], device='cuda:0',
+ 1 4 tensor([ 0.0182, -0.0029, -0.0029,  0.0232, -0.0383,  1.6705], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 3 0 tensor([ 0.0047,  0.0052, -0.0065, -0.0059, -0.0263,  1.1203], device='cuda:0',
+ 2 0 tensor([-0.0047, -0.0074, -0.0131,  0.0037, -0.0391,  1.9611], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 3 1 tensor([-0.0048,  0.0030,  0.0024, -0.0218, -0.0186,  1.1471], device='cuda:0',
+ 2 1 tensor([ 0.0117, -0.0098,  0.0085,  0.0133, -0.0228,  1.7574], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 3 2 tensor([ 1.2925e-03, -3.1830e-03, -7.5959e-04,  5.0237e-03, -1.8179e-02,
-         1.0506e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 3 3 tensor([ 0.0036, -0.0021,  0.0047,  0.0042, -0.0139,  0.8387], device='cuda:0',
+ 2 2 tensor([ 0.0141, -0.0099, -0.0036,  0.0472, -0.0405,  1.7876], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 3 4 tensor([ 2.6144e-04, -2.0328e-03,  2.1600e-03,  8.7935e-03, -1.8229e-02,
-         7.6511e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 4 0 tensor([ 0.0019,  0.0050,  0.0036,  0.0106, -0.0131,  1.3878], device='cuda:0',
+ 2 3 tensor([ 0.0064, -0.0022,  0.0067,  0.0297, -0.0231,  1.6122], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 4 1 tensor([-5.4925e-03, -8.1557e-03, -5.0516e-04, -4.7500e-03, -3.1022e-02,
-         1.4203e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 4 2 tensor([ 0.0033, -0.0018,  0.0027,  0.0059, -0.0205,  1.2758], device='cuda:0',
+ 2 4 tensor([-0.0027,  0.0074, -0.0069,  0.0463, -0.0289,  1.5932], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 4 3 tensor([ 4.5974e-03,  4.3038e-04, -1.5450e-03, -1.3590e-02, -1.3928e-02,
-         1.2120e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 4 4 tensor([ 0.0043, -0.0018, -0.0028, -0.0132, -0.0116,  0.9412], device='cuda:0',
+ 3 0 tensor([-2.6781e-03,  1.7878e-02,  3.7345e-04, -1.2295e-02, -5.5623e-02,
+         2.1684e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 3 1 tensor([ 0.0160, -0.0117,  0.0172,  0.0212, -0.0260,  1.6364], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 5 0 tensor([-0.0016,  0.0068, -0.0027,  0.0052, -0.0216,  1.2241], device='cuda:0',
+ 3 2 tensor([ 0.0022, -0.0070,  0.0109,  0.0431, -0.0283,  1.9416], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 5 1 tensor([ 0.0024, -0.0058,  0.0019, -0.0052, -0.0181,  1.2395], device='cuda:0',
+ 3 3 tensor([ 0.0153, -0.0075, -0.0107,  0.0419, -0.0271,  2.0938], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 5 2 tensor([-0.0029, -0.0039, -0.0036, -0.0073, -0.0259,  1.1199], device='cuda:0',
+ 3 4 tensor([ 1.7966e-02, -3.9386e-04,  3.4085e-04,  2.6256e-02, -1.2103e-02,
+         1.7582e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 4 0 tensor([ 0.0160, -0.0161,  0.0064,  0.0092, -0.0245,  1.7681], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 5 3 tensor([-0.0065, -0.0056, -0.0018, -0.0278, -0.0269,  1.0961], device='cuda:0',
+ 4 1 tensor([ 0.0107, -0.0039, -0.0077,  0.0169, -0.0384,  1.8883], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 5 4 tensor([ 7.6807e-04,  4.0755e-04,  3.6093e-03,  1.7059e-03, -1.8210e-02,
-         9.7431e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 6 0 tensor([ 1.0633e-02, -5.1725e-03,  6.9767e-04,  3.4125e-03, -1.9367e-02,
-         1.1415e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 6 1 tensor([-5.6739e-04, -1.1922e-03, -5.4394e-03,  3.2603e-03, -2.9449e-02,
-         1.1159e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 6 2 tensor([-0.0061,  0.0024,  0.0020, -0.0012, -0.0196,  0.8403], device='cuda:0',
+ 4 2 tensor([ 0.0211, -0.0157, -0.0106,  0.0428, -0.0334,  1.7661], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 6 3 tensor([ 2.6850e-04, -1.7974e-03,  1.1950e-03, -5.3937e-03, -1.5873e-02,
-         8.6617e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 6 4 tensor([-1.5957e-03, -1.3585e-03,  4.7616e-04, -5.0940e-03, -1.2854e-02,
-         7.0533e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 7 0 tensor([ 0.0021,  0.0016, -0.0041,  0.0174, -0.0247,  1.1383], device='cuda:0',
+ 4 3 tensor([ 1.6491e-02, -8.3121e-03, -6.1798e-04,  6.1734e-02, -1.0731e-02,
+         1.7195e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 4 4 tensor([ 1.0572e-03,  3.1541e-03,  1.4597e-03,  1.4593e-02, -1.5799e-02,
+         1.6598e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 5 0 tensor([ 8.3779e-03, -5.7051e-04,  1.1040e-03, -9.8555e-03, -3.4764e-02,
+         1.7711e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 5 1 tensor([ 0.0124, -0.0080, -0.0135,  0.0449, -0.0401,  1.8131], device='cuda:0',
        grad_fn=<UnbindBackward0>)
- 7 1 tensor([-4.5633e-04, -5.0696e-03,  5.4099e-03,  7.1679e-03, -1.9555e-02,
-         1.1101e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 7 2 tensor([-6.6016e-03,  4.6873e-03, -2.4844e-03,  6.3757e-04, -9.0485e-03,
-         1.1293e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
- 7 3 tensor([ 7.9224e-03, -9.4622e-04,  3.2533e-03, -3.4618e-03, -1.2396e-02,
-         9.4920e-01], device='cuda:0', grad_fn=<UnbindBackward0>)
- 7 4 tensor([ 0.0018, -0.0018,  0.0015, -0.0016, -0.0152,  1.0934], device='cuda:0',
+ 5 2 tensor([ 0.0025,  0.0051,  0.0026,  0.0265, -0.0351,  1.6472], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 5 3 tensor([ 0.0139,  0.0123, -0.0040,  0.0514, -0.0303,  1.3354], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 5 4 tensor([-7.2520e-03,  4.0253e-03, -1.2102e-03,  5.0160e-02, -3.4871e-02,
+         1.5582e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 6 0 tensor([ 0.0118, -0.0215, -0.0070,  0.0257, -0.0308,  1.6785], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 6 1 tensor([-7.0200e-03, -5.7974e-04,  1.4871e-03,  5.4229e-03, -2.2065e-02,
+         1.9365e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 6 2 tensor([ 0.0105, -0.0090, -0.0081,  0.0350, -0.0239,  1.6234], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 6 3 tensor([ 0.0098, -0.0031,  0.0055,  0.0239, -0.0247,  1.7332], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 6 4 tensor([ 6.2003e-04,  2.5077e-03,  4.6450e-04,  4.3791e-02, -3.6207e-02,
+         1.6368e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 7 0 tensor([ 8.2272e-03,  3.9452e-03, -5.0216e-03,  7.7031e-04, -2.4165e-02,
+         1.5551e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 7 1 tensor([-0.0125,  0.0055, -0.0159,  0.0182, -0.0317,  1.8296], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 7 2 tensor([ 5.1347e-04, -3.2196e-04, -1.5622e-04, -9.4488e-03, -2.0337e-02,
+         1.9331e+00], device='cuda:0', grad_fn=<UnbindBackward0>)
+ 7 3 tensor([ 0.0133, -0.0032,  0.0044,  0.0274, -0.0310,  1.7221], device='cuda:0',
+       grad_fn=<UnbindBackward0>)
+ 7 4 tensor([ 0.0042, -0.0040, -0.0055,  0.0196, -0.0170,  1.5911], device='cuda:0',
        grad_fn=<UnbindBackward0>)
