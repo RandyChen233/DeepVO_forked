@@ -16,10 +16,11 @@ class Parameters():
 		self.resize_mode = 'rescale'  # choice: 'crop' 'rescale' None
 		self.img_w = 608   # original size is about 1226
 		self.img_h = 184   # original size is about 370
-		# self.img_means =  (0.19007764876619865, 0.15170388157131237, 0.10659445665650864)
-		self.img_means = (-0.14780828850818542, -0.1291420536888219, -0.13622912775383617)
-		# self.img_stds =  (0.2610784009469139, 0.25729316928935814, 0.25163823815039915)
-		self.img_stds = (0.3196393944399437, 0.322048063404718, 0.3234243745441332)
+		self.img_means =  (0.19007764876619865, 0.15170388157131237, 0.10659445665650864)
+		# self.img_means = (-0.149654208803311, -0.13016755162196275, -0.1357813081459066)
+  
+		self.img_stds =  (0.2610784009469139, 0.25729316928935814, 0.25163823815039915)
+		# self.img_stds = (0.3153990545465214, 0.31948854360777074, 0.32346405850814824)
 		self.minus_point_5 = True
 
 		self.seq_len = (5, 7)
@@ -49,7 +50,7 @@ class Parameters():
 					# {'opt': 'Cosine', 'T': 100 , 'lr': 0.001}
 		
 		# Pretrain, Resume training
-		self.pretrained_flownet = './pretrained/flownets_EPE1.951.pth.tar' 
+		self.pretrained_flownet = './pretrained/flownets_bn_EPE2.459.pth.tar' 
   								#'./pretrained/flownets_bn_EPE2.459.pth.tar'  
 								# Choice:
 								# None

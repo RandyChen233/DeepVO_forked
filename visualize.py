@@ -7,7 +7,7 @@ from tqdm import tqdm
 pose_GT_dir = par.pose_dir  #'KITTI/pose_GT/'
 predicted_result_dir = './result/'
 gradient_color = False
-adversarial_attack = True
+adversarial_attack = False
 
 def plot_route(gt, out, c_gt='g', c_out='r'):
 	x_idx = 3
@@ -26,8 +26,10 @@ def plot_route(gt, out, c_gt='g', c_out='r'):
 # Load in GT and predicted pose
 # video_list = ['00', '02', '08', '09']
 # video_list += ['01', '04', '05', '06', '07', '10']
-# video_list = ['04','05','07','09','10']
-video_list = ['05', '07', '10']
+
+# video_list = ['05', '07', '10']
+video_list = ['07']
+# video_list = ['04', '05', '07', '10', '09']
 
 for video in (prog_bar := tqdm(video_list)):
 	print('='*50)
@@ -36,8 +38,12 @@ for video in (prog_bar := tqdm(video_list)):
 	GT_pose_path = '{}{}.npy'.format(pose_GT_dir, video)
 	gt = np.load(GT_pose_path)
 	if adversarial_attack:
+		save_name = '{}route_adversarial_{}.png'.format(predicted_result_dir, video)
 		pose_result_path = '{}out_adversarial_{}.txt'.format(predicted_result_dir, video)
-	pose_result_path = '{}out_{}.txt'.format(predicted_result_dir, video)
+	else:
+		save_name = '{}route_{}.png'.format(predicted_result_dir, video)
+		pose_result_path = '{}out_{}.txt'.format(predicted_result_dir, video)
+  
 	with open(pose_result_path) as f_out:
 		out = [l.split('\n')[0] for l in f_out.readlines()]
 		for i, line in enumerate(out):
@@ -63,11 +69,6 @@ for video in (prog_bar := tqdm(video_list)):
 			if st == 0:
 				plt.legend()
 			plt.title('Video {}'.format(video))
-			if adversarial_attack:
-       
-				save_name = '{}route_{}_gradient_adversarial.png'.format(predicted_result_dir, video)
-			else:
-				save_name = '{}route_{}_gradient.png'.format(predicted_result_dir, video)
     
 		plt.savefig(save_name)
 	else:
@@ -79,5 +80,6 @@ for video in (prog_bar := tqdm(video_list)):
 		plot_route(gt, out, 'r', 'b')
 		plt.legend()
 		plt.title('Video {}'.format(video))
-		save_name = '{}route_{}.png'.format(predicted_result_dir, video)
 		plt.savefig(save_name)
+
+

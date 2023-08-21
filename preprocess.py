@@ -112,8 +112,8 @@ if __name__ == '__main__':
 	create_pose_data()
 	
 	# Calculate RGB means of images in training videos
-	# train_video = ['00', '02', '08', '09', '06', '04', '10']
-	train_video = ['00', '02', '08' ]
+	train_video = ['00', '02', '08', '09', '06', '04', '10']
+	# train_video = ['00', '02', '08' ]
 	image_path_list = []
 	for folder in train_video:
 		image_path_list += glob.glob('KITTI/images/{}/*.png'.format(folder))

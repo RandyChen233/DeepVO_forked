@@ -47,7 +47,6 @@ print('Number of samples in training dataset: ', len(train_df.index))
 print('Number of samples in validation dataset: ', len(valid_df.index))
 print('='*50)
 
-
 # Model
 M_deepvo = DeepVO(par.img_h, par.img_w, par.batch_norm)
 use_cuda = torch.cuda.is_available()
@@ -55,14 +54,13 @@ if use_cuda:
     print('CUDA used.')
     M_deepvo = M_deepvo.cuda()
 
-
 # Load FlowNet weights pretrained with FlyingChairs
 # NOTE: the pretrained model assumes image rgb values in range [-0.5, 0.5]
 if par.pretrained_flownet and not par.resume:
 	if use_cuda:
 		pretrained_w = torch.load(par.pretrained_flownet)
 	else:
-		pretrained_w = torch.load(par.pretrained_flownet_flownet, map_location='cpu')
+		pretrained_w = torch.load(par.pretrained_flownet, map_location='cpu')
 	print('Load FlowNet pretrained model')
 	# Use only conv-layer-part of FlowNet as CNN for DeepVO
 	model_dict = M_deepvo.state_dict()
@@ -88,8 +86,35 @@ if par.resume:
 	print('Load optimizer from: ', par.load_optimizer_path)
 
 
+def fgsm(model, X, y, epsilon):
+    """ Construct FGSM adversarial examples on the examples X"""
+    model.train()
+    delta = torch.zeros_like(X, requires_grad=True)
+    # loss = nn.CrossEntropyLoss()(model(X + delta), y)
+    loss = model.get_loss(X+delta, y)
+    loss.backward()
+    return epsilon * delta.grad.detach().sign() 
+
+
+# def epoch_adversarial(loader, model, attack, opt=None, **kwargs):
+#     """Adversarial training/evaluation epoch over the dataset"""
+#     total_loss, total_err = 0.,0.
+#     for X,y in loader:
+#         X,y = X.to(device), y.to(device)
+#         delta = attack(model, X, y, **kwargs)
+#         yp = model(X+delta)
+#         loss = nn.CrossEntropyLoss()(yp,y)
+#         if opt:
+#             opt.zero_grad()
+#             loss.backward()
+#             opt.step()
+        
+#         total_err += (yp.max(dim=1)[1] != y).sum().item()
+#         total_loss += loss.item() * X.shape[0]
+#     return total_err / len(loader.dataset), total_loss / len(loader.dataset)
 # Train
 # TODO: add an adversarial training option
+adversarial_training = True
 print('Record loss in: ', par.record_path)
 min_loss_t = 1e10
 min_loss_v = 1e10
@@ -105,7 +130,11 @@ for ep in range(par.epochs):
 		if use_cuda:
 			t_x = t_x.cuda(non_blocking=par.pin_mem)
 			t_y = t_y.cuda(non_blocking=par.pin_mem)
-		ls = M_deepvo.step(t_x, t_y, optimizer).data.cpu().numpy()
+		if adversarial_training:
+			delta = fgsm(M_deepvo, t_x, t_y, 0.1)
+			ls = M_deepvo.step(t_x + delta, t_y, optimizer).data.cpu().numpy()
+		else:
+			ls = M_deepvo.step(t_x, t_y, optimizer).data.cpu().numpy()
 		t_loss_list.append(float(ls))
 		loss_mean += float(ls)
 		if par.optim == 'Cosine':

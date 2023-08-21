@@ -13,11 +13,8 @@ from torch.utils.data import DataLoader
 from helper import eulerAnglesToRotationMatrix
 import torch.nn as nn
 
-
-torch.cuda.empty_cache()
-
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-torch.cuda.memory_summary(device=None, abbreviated=False)
+# torch.cuda.memory_summary(device=None, abbreviated=False)
 def fgsm(model, X, y, epsilon):
     """ Construct FGSM adversarial examples on the examples X"""
     model.train()
@@ -25,9 +22,9 @@ def fgsm(model, X, y, epsilon):
     # loss = nn.CrossEntropyLoss()(model(X + delta), y)
     loss = model.get_loss(X+delta, y)
     loss.backward()
-    return epsilon * delta.grad.detach().sign() #returns the delta perturbation
+    return epsilon * delta.grad.detach().sign() 
 
-def pgd_linf(model, X, y, epsilon=0.3, alpha=0.01, num_iter=20, randomize=False):
+def pgd_linf(model, X, y, epsilon=0.1, alpha=0.01, num_iter=20, randomize=False):
     """ Construct FGSM adversarial examples on the examples X"""
     model.train()
     if randomize:
@@ -35,7 +32,7 @@ def pgd_linf(model, X, y, epsilon=0.3, alpha=0.01, num_iter=20, randomize=False)
         delta.data = delta.data * 2 * epsilon - epsilon
     else:
         delta = torch.zeros_like(X, requires_grad=True)
-        
+    print(f'delta has shape {delta.shape}, X has shape {X.shape}, y has shape {y.shape}')
     for t in range(num_iter):
         # loss = nn.CrossEntropyLoss()(model(X + delta), y)
         loss = model.get_loss(X+delta, y)
@@ -44,22 +41,33 @@ def pgd_linf(model, X, y, epsilon=0.3, alpha=0.01, num_iter=20, randomize=False)
         delta.grad.zero_()
     return delta.detach()
 
-def epoch_adversarial(model, loader, attack, *args):
-    model.train()
-    total_loss, total_err = 0.,0.
-    for X,y in loader:
-        X,y = X.to(device), y.to(device)
-        delta = attack(model, X, y, *args)
-        yp = model(X+delta)
-        # loss = nn.CrossEntropyLoss()(yp,y)
-        loss = model.get_loss(yp, y)
-        total_err += (yp.max(dim=1)[1] != y).sum().item()
-        total_loss += loss.item() * X.shape[0]
-    return total_err / len(loader.dataset), total_loss / len(loader.dataset)
+def RADA_attack(model, X, y, epsilon = 158 ,eta = 10, num_iter = 20, pow = 1.5):
+	model.train()
+	X_adv = torch.zeros_like(X, requires_grad = False)
+	r_adv = torch.zeros_like(X, requires_grad = False)
+	X = X.clone().detach().requires_grad_(True)
+	# print(f'X_adv has shape {X_adv.shape}, r_adv has shape {r_adv.shape}')
+	# print(f'X has shape {X.shape}, y has shape {y.shape}')
+	for t in range(num_iter):
+		threshold_eta = (torch.max(X)-torch.min(X))/eta
+		# print(X.shape, y.shape)
+		loss = model.get_loss(X, y)
+		loss.backward()
+		r_adv.data = r_adv + epsilon * X.grad.detach().sign() * X.grad.detach().matrix_power(pow)
+		# if torch.any(r_adv.data > threshold_eta):
+		# 	r_adv.data = threshold_eta
+
+		X_adv.data = (X_adv + X + r_adv.data).clamp(0, 255)
+		X.grad.zero_()
+
+	return r_adv.detach(), X_adv.detach()
+
+
 
 if __name__ == '__main__':    
-	adversarial_attack = True
-	videos_to_test = ['05', '07', '10']
+	adversarial_attack = False
+	# videos_to_test = ['04', '05', '07', '10', '09']
+	videos_to_test = ['07']
 
 	# Path
 	load_model_path = par.load_model_path   #choose the model you want to load
@@ -110,18 +118,20 @@ if __name__ == '__main__':
 			print('{} / {}'.format(i, n_batch), end='\r', flush=True)
 			_, x, y = batch
 			# print(f'batch has length {len(batch)}')
-			# print(x.shape,y.shape)
+
 			if use_cuda:
 				x = x.cuda()
 				y = y.cuda()
     
 			if adversarial_attack:
 				# print(f'x has shape{x.shape}, y has shape {y.shape}')
-				# delta = fgsm(M_deepvo, x, y, 1.0)
-				delta = pgd_linf(M_deepvo, x, y)
+				delta = fgsm(M_deepvo, x, y, 0.1)
+				# r_adv, X_adv = RADA_attack(M_deepvo, x, y)
+				# delta = pgd_linf(M_deepvo, x, y)
 				# print(f'x has shape {x.shape}, y has shape {y.shape}')
 				batch_predict_pose = M_deepvo.forward(x + delta)
-				# print(torch.min(x+delta), torch.max(x+delta))
+				# batch_predict_pose = X_adv
+	
 				
 			else:
 				

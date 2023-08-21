@@ -137,7 +137,8 @@ class DeepVO(nn.Module):
         translation_loss = torch.nn.functional.mse_loss(predicted[:,:,3:], y[:,:,3:])
         loss = (100 * angle_loss + translation_loss)
         return loss
-
+    
+        
     def step(self, x, y, optimizer):
         optimizer.zero_grad()
         loss = self.get_loss(x, y)
