@@ -12,6 +12,7 @@ from data_helper import get_data_info, ImageSequenceDataset
 from torch.utils.data import DataLoader
 from helper import eulerAnglesToRotationMatrix
 import torch.nn as nn
+from torchvision import transforms
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # torch.cuda.memory_summary(device=None, abbreviated=False)
@@ -61,6 +62,26 @@ def RADA_attack(model, X, y, epsilon = 158 ,eta = 10, num_iter = 20, pow = 1.5):
 		X.grad.zero_()
 
 	return r_adv.detach(), X_adv.detach()
+
+
+def denorm(batch, mean=list(par.img_means), std = list(par.img_stds)):
+    """
+    Convert a batch of tensors to their original scale.
+
+    Args:
+        batch (torch.Tensor): Batch of normalized tensors.
+        mean (torch.Tensor or list): Mean used for normalization.
+        std (torch.Tensor or list): Standard deviation used for normalization.
+
+    Returns:
+        torch.Tensor: batch of tensors without normalization applied to them.
+    """
+    if isinstance(mean, list):
+        mean = torch.tensor(mean).to(device)
+    if isinstance(std, list):
+        std = torch.tensor(std).to(device)
+
+    return batch * std.view(1, -1, 1, 1) + mean.view(1, -1, 1, 1)
 
 
 
@@ -125,11 +146,11 @@ if __name__ == '__main__':
     
 			if adversarial_attack:
 				# print(f'x has shape{x.shape}, y has shape {y.shape}')
+				x_denormed = denorm(x)
 				delta = fgsm(M_deepvo, x, y, 0.1)
-				# r_adv, X_adv = RADA_attack(M_deepvo, x, y)
-				# delta = pgd_linf(M_deepvo, x, y)
-				# print(f'x has shape {x.shape}, y has shape {y.shape}')
-				batch_predict_pose = M_deepvo.forward(x + delta)
+				#Re-apply normalization:
+				delta_normalized = transforms.Normalize((list(par.img_means)), (list(par.img_stds)))(delta)
+				batch_predict_pose = M_deepvo.forward(x + delta_normalized)
 				# batch_predict_pose = X_adv
 	
 				

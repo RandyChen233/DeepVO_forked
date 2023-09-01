@@ -35,6 +35,7 @@ else:
 
 # print(train_df.shape, valid_df.shape)
 train_sampler = SortedRandomBatchSampler(train_df, par.batch_size, drop_last=True)
+#Cropping the image sequences:
 train_dataset = ImageSequenceDataset(train_df, par.resize_mode, (par.img_w, par.img_h), par.img_means, par.img_stds, par.minus_point_5)
 train_dl = DataLoader(train_dataset, batch_sampler=train_sampler, num_workers=par.n_processors, pin_memory=par.pin_mem)
 
@@ -79,7 +80,7 @@ elif par.optim['opt'] == 'Cosine':
 	lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_iter, eta_min=0, last_epoch=-1)
 
 # Load trained DeepVO model and optimizer
-if par.resume:
+if par.resume: #Resume training based on progress made so far!
 	M_deepvo.load_state_dict(torch.load(par.load_model_path))
 	optimizer.load_state_dict(torch.load(par.load_optimizer_path))
 	print('Load model from: ', par.load_model_path)
@@ -114,7 +115,7 @@ def fgsm(model, X, y, epsilon):
 #     return total_err / len(loader.dataset), total_loss / len(loader.dataset)
 # Train
 # TODO: add an adversarial training option
-adversarial_training = True
+adversarial_training = False
 print('Record loss in: ', par.record_path)
 min_loss_t = 1e10
 min_loss_v = 1e10
@@ -130,9 +131,6 @@ for ep in range(par.epochs):
 		if use_cuda:
 			t_x = t_x.cuda(non_blocking=par.pin_mem)
 			t_y = t_y.cuda(non_blocking=par.pin_mem)
-		if adversarial_training:
-			delta = fgsm(M_deepvo, t_x, t_y, 0.1)
-			ls = M_deepvo.step(t_x + delta, t_y, optimizer).data.cpu().numpy()
 		else:
 			ls = M_deepvo.step(t_x, t_y, optimizer).data.cpu().numpy()
 		t_loss_list.append(float(ls))

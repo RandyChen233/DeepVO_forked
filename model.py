@@ -49,7 +49,7 @@ class DeepVO(nn.Module):
         self.rnn_drop_out = nn.Dropout(par.rnn_dropout_out)
         self.linear = nn.Linear(in_features=par.rnn_hidden_size, out_features=6)
 
-        # Initilization
+        # lization
         for m in self.modules():
             if isinstance(m, nn.Conv2d) or isinstance(m, nn.ConvTranspose2d) or isinstance(m, nn.Linear):
                 kaiming_normal_(m.weight.data)
