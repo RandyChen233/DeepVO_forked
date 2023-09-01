@@ -87,16 +87,6 @@ if par.resume: #Resume training based on progress made so far!
 	print('Load optimizer from: ', par.load_optimizer_path)
 
 
-def fgsm(model, X, y, epsilon):
-    """ Construct FGSM adversarial examples on the examples X"""
-    model.train()
-    delta = torch.zeros_like(X, requires_grad=True)
-    # loss = nn.CrossEntropyLoss()(model(X + delta), y)
-    loss = model.get_loss(X+delta, y)
-    loss.backward()
-    return epsilon * delta.grad.detach().sign() 
-
-
 # def epoch_adversarial(loader, model, attack, opt=None, **kwargs):
 #     """Adversarial training/evaluation epoch over the dataset"""
 #     total_loss, total_err = 0.,0.

@@ -18,16 +18,20 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # torch.cuda.memory_summary(device=None, abbreviated=False)
 def fgsm(model, X, y, epsilon):
     """ Construct FGSM adversarial examples on the examples X"""
-    model.train()
+    predicted = model.forward(x)
+    y = y[:, 1:, :]  # (batch, seq, dim_pose)
+    angle_loss = torch.nn.functional.mse_loss(predicted[:,:,:3], y[:,:,:3])
+    translation_loss = torch.nn.functional.mse_loss(predicted[:,:,3:], y[:,:,3:])
+    
     delta = torch.zeros_like(X, requires_grad=True)
-    # loss = nn.CrossEntropyLoss()(model(X + delta), y)
-    loss = model.get_loss(X+delta, y)
+    loss = (100 * angle_loss + translation_loss)
     loss.backward()
+	
     return epsilon * delta.grad.detach().sign() 
 
 def pgd_linf(model, X, y, epsilon=0.1, alpha=0.01, num_iter=20, randomize=False):
     """ Construct FGSM adversarial examples on the examples X"""
-    model.train()
+
     if randomize:
         delta = torch.rand_like(X, requires_grad=True)
         delta.data = delta.data * 2 * epsilon - epsilon
@@ -43,7 +47,6 @@ def pgd_linf(model, X, y, epsilon=0.1, alpha=0.01, num_iter=20, randomize=False)
     return delta.detach()
 
 def RADA_attack(model, X, y, epsilon = 158 ,eta = 10, num_iter = 20, pow = 1.5):
-	model.train()
 	X_adv = torch.zeros_like(X, requires_grad = False)
 	r_adv = torch.zeros_like(X, requires_grad = False)
 	X = X.clone().detach().requires_grad_(True)
@@ -86,7 +89,7 @@ def denorm(batch, mean=list(par.img_means), std = list(par.img_stds)):
 
 
 if __name__ == '__main__':    
-	adversarial_attack = False
+	adversarial_attack = True
 	# videos_to_test = ['04', '05', '07', '10', '09']
 	videos_to_test = ['07']
 
@@ -147,11 +150,10 @@ if __name__ == '__main__':
 			if adversarial_attack:
 				# print(f'x has shape{x.shape}, y has shape {y.shape}')
 				x_denormed = denorm(x)
-				delta = fgsm(M_deepvo, x, y, 0.1)
+				delta = fgsm(M_deepvo, x_denormed, y, 0.05)
 				#Re-apply normalization:
 				delta_normalized = transforms.Normalize((list(par.img_means)), (list(par.img_stds)))(delta)
 				batch_predict_pose = M_deepvo.forward(x + delta_normalized)
-				# batch_predict_pose = X_adv
 	
 				
 			else:

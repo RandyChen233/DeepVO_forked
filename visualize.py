@@ -75,7 +75,6 @@ for video in (prog_bar := tqdm(video_list)):
 		# plot one color
 		print('plotting...')
 		plt.clf()
-		plt.figure()
 		plt.scatter([gt[0][3]], [gt[0][5]], label='sequence start', marker='s', color='k')
 		plot_route(gt, out, 'r', 'b')
 		plt.legend()
