@@ -16,18 +16,29 @@ from torchvision import transforms
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # torch.cuda.memory_summary(device=None, abbreviated=False)
-def fgsm(model, X, y, epsilon):
-    """ Construct FGSM adversarial examples on the examples X"""
-    predicted = model.forward(x)
-    y = y[:, 1:, :]  # (batch, seq, dim_pose)
-    angle_loss = torch.nn.functional.mse_loss(predicted[:,:,:3], y[:,:,:3])
-    translation_loss = torch.nn.functional.mse_loss(predicted[:,:,3:], y[:,:,3:])
+# def fgsm(model, X, y, epsilon):
+#     """ Construct FGSM adversarial examples on the examples X"""
+#     model.train()
+#     delta = torch.zeros_like(X, requires_grad=True)
+#     y = y[:, 1:, :]  # (batch, seq, dim_pose)
+#     angle_loss = torch.nn.functional.mse_loss(model.forward(X + delta)[:,:,:3], y[:,:,:3])
+#     translation_loss = torch.nn.functional.mse_loss(model.forward(X + delta)[:,:,3:], y[:,:,3:])
+#     loss = (100 * angle_loss + translation_loss)
     
-    delta = torch.zeros_like(X, requires_grad=True)
-    loss = (100 * angle_loss + translation_loss)
-    loss.backward()
-	
-    return epsilon * delta.grad.detach().sign() 
+#     loss.backward()
+    
+#     return torch.clamp(X + epsilon * delta.grad.detach().sign(), -0.5, 0.5) 
+
+def fgsm_attack(image, epsilon, data_grad):
+    # Collect the element-wise sign of the data gradient
+    sign_data_grad = data_grad.sign()
+    # Create the perturbed image by adjusting each pixel of the input image
+    perturbed_image = image + epsilon*sign_data_grad
+    # Adding clipping to maintain [-0.5, 0.5] range for each pixel
+    perturbed_image = torch.clamp(perturbed_image, -0.5, 0.5)
+    # Return the perturbed image
+    return perturbed_image
+
 
 def pgd_linf(model, X, y, epsilon=0.1, alpha=0.01, num_iter=20, randomize=False):
     """ Construct FGSM adversarial examples on the examples X"""
@@ -39,7 +50,6 @@ def pgd_linf(model, X, y, epsilon=0.1, alpha=0.01, num_iter=20, randomize=False)
         delta = torch.zeros_like(X, requires_grad=True)
     print(f'delta has shape {delta.shape}, X has shape {X.shape}, y has shape {y.shape}')
     for t in range(num_iter):
-        # loss = nn.CrossEntropyLoss()(model(X + delta), y)
         loss = model.get_loss(X+delta, y)
         loss.backward()
         delta.data = (delta + alpha*delta.grad.detach().sign()).clamp(-epsilon,epsilon)
@@ -86,7 +96,7 @@ def denorm(batch, mean=list(par.img_means), std = list(par.img_stds)):
 
     return batch * std.view(1, -1, 1, 1) + mean.view(1, -1, 1, 1)
 
-
+torch.backends.cudnn.enabled = False
 
 if __name__ == '__main__':    
 	adversarial_attack = True
@@ -120,7 +130,7 @@ if __name__ == '__main__':
 	fd=open('test_dump.txt', 'w')
 	fd.write('\n'+'='*50 + '\n')
 
-	for test_video in (prog_bar := tqdm(videos_to_test)):
+	for test_video in (videos_to_test):
 		df = get_data_info(folder_list=[test_video], seq_len_range=[seq_len, seq_len], overlap=overlap, sample_times=1, shuffle=False, sort=False)
 		df = df.loc[df.seq_len == seq_len]  # drop last
 		dataset = ImageSequenceDataset(df, par.resize_mode, (par.img_w, par.img_h), par.img_means, par.img_stds, par.minus_point_5)
@@ -129,10 +139,9 @@ if __name__ == '__main__':
 		#dataloader is now the test set
 		#apply adversarial attack to this !
   
-		gt_pose = np.load('{}{}.npy'.format(par.pose_dir, test_video))  # (n_images, 6)
-
 		# Predict
 		M_deepvo.eval()
+		M_deepvo.rnn.train()
 		has_predict = False
 		answer = [[0.0]*6, ]
 		st_t = time.time()
@@ -141,24 +150,38 @@ if __name__ == '__main__':
 		for i, batch in enumerate(dataloader):
 			print('{} / {}'.format(i, n_batch), end='\r', flush=True)
 			_, x, y = batch
+			# print(x.mean(),x.std())
 			# print(f'batch has length {len(batch)}')
-
+			x.requires_grad = True
 			if use_cuda:
 				x = x.cuda()
 				y = y.cuda()
     
 			if adversarial_attack:
 				# print(f'x has shape{x.shape}, y has shape {y.shape}')
+				output = M_deepvo.forward(x)
+				y = y[:, 1:, :]
+				angle_loss = torch.nn.functional.mse_loss(output[:,:,:3], y[:,:,:3])
+				translation_loss = torch.nn.functional.mse_loss(output[:,:,3:], y[:,:,3:])
+				loss = (100 * angle_loss + translation_loss)
+
+				x.retain_grad()
+				loss.backward()
+
+				x_grad = x.grad.data
 				x_denormed = denorm(x)
-				delta = fgsm(M_deepvo, x_denormed, y, 0.05)
+				# print(image_denormed.shape)
+
+				perturbed_image = fgsm_attack(x_denormed, 0.1, x_grad)
 				#Re-apply normalization:
-				delta_normalized = transforms.Normalize((list(par.img_means)), (list(par.img_stds)))(delta)
-				batch_predict_pose = M_deepvo.forward(x + delta_normalized)
+				perturbed_image_normalized = transforms.Normalize((list(par.img_means)), (list(par.img_stds)))(perturbed_image)
+				batch_predict_pose = M_deepvo.forward(perturbed_image_normalized)
 	
 				
 			else:
 				
 				batch_predict_pose = M_deepvo.forward(x)
+
 
 			# Record answer
 			fd.write('Batch: {}\n'.format(i))
@@ -168,6 +191,8 @@ if __name__ == '__main__':
 
 
 			batch_predict_pose = batch_predict_pose.data.cpu().numpy()
+			# print(batch_predict_pose.shape)
+   
 			if i == 0:
 				for pose in batch_predict_pose[0]:
 					# use all predicted pose in the first prediction

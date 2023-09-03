@@ -14,8 +14,10 @@ class Parameters():
 		
 		# Data Preprocessing
 		self.resize_mode = 'rescale'  # choice: 'crop' 'rescale' None
-		self.img_w = 608   # original size is about 1226
-		self.img_h = 184   # original size is about 370
+		# self.img_w = 608   # original size is about 1226
+		self.img_w = 1241
+		# self.img_h = 184   # original size is about 370
+		self.img_h = 376
 		self.img_means =  (0.19007764876619865, 0.15170388157131237, 0.10659445665650864)
 		# self.img_means = (-0.149654208803311, -0.13016755162196275, -0.1357813081459066)
   
