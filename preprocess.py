@@ -60,7 +60,7 @@ def create_pose_data():
 	print('elapsed time = {}'.format(time.time()-start_t))
 
 
-def calculate_rgb_mean_std(image_path_list, minus_point_5=False):
+def calculate_rgb_mean_std(image_path_list, minus_point_5=True):
 	n_images = len(image_path_list)
 	cnt_pixels = 0
 	print('Numbers of frames in training dataset: {}'.format(n_images))
@@ -112,8 +112,8 @@ if __name__ == '__main__':
 	create_pose_data()
 	
 	# Calculate RGB means of images in training videos
-	train_video = ['00', '02', '08', '09', '06', '04', '10']
-	# train_video = ['00', '02', '08' ]
+	# train_video = ['00','01','02','05', '08','09' ]
+	train_video = ['00', '02', '08', '09', '06', '04', '10'] #This set of train_video is only used to calculate the mean and std
 	image_path_list = []
 	for folder in train_video:
 		image_path_list += glob.glob('KITTI/images/{}/*.png'.format(folder))

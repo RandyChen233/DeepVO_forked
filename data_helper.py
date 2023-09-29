@@ -185,7 +185,7 @@ class ImageSequenceDataset(Dataset):
         elif resize_mode == 'rescale':
             transform_ops.append(transforms.Resize((new_sizeize[0], new_sizeize[1])))
         transform_ops.append(transforms.ToTensor())
-        #transform_ops.append(transforms.Normalize(mean=img_mean, std=img_std))
+
         self.transformer = transforms.Compose(transform_ops)
         self.minus_point_5 = minus_point_5
         self.normalizer = transforms.Normalize(mean=img_mean, std=img_std)
@@ -228,9 +228,12 @@ class ImageSequenceDataset(Dataset):
         for img_path in image_path_sequence:
             img_as_img = Image.open(img_path)
             img_as_tensor = self.transformer(img_as_img)
+            # print(f"after transforming: {img_as_tensor.max()}")
             if self.minus_point_5:
                 img_as_tensor = img_as_tensor - 0.5  # from [0, 1] -> [-0.5, 0.5]
+            # print(f"after minus point 5: {img_as_tensor.max()}")
             img_as_tensor = self.normalizer(img_as_tensor)
+            # print(f"after normalizing: {img_as_tensor.max()}")  #Somehow the range of x is not bounded in [-0.5, 0.5] anymore at this point...
             img_as_tensor = img_as_tensor.unsqueeze(0)
             image_sequence.append(img_as_tensor)
         image_sequence = torch.cat(image_sequence, 0)

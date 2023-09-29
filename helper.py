@@ -4,6 +4,8 @@ import math
 # epsilon for testing whether a number is close to zero
 _EPS = np.finfo(float).eps * 4.0
 
+
+
 def isRotationMatrix(R) :
 	Rt = np.transpose(R)
 	shouldBeIdentity = np.dot(Rt, R)

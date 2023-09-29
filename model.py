@@ -4,6 +4,8 @@ from params import par
 from torch.autograd import Variable
 from torch.nn.init import kaiming_normal_, orthogonal_
 import numpy as np
+from attack_tools import *
+from torchvision import transforms
 
 def conv(batchNorm, in_planes, out_planes, kernel_size=3, stride=1, dropout=0):
     if batchNorm:
@@ -19,7 +21,7 @@ def conv(batchNorm, in_planes, out_planes, kernel_size=3, stride=1, dropout=0):
             nn.LeakyReLU(0.1, inplace=True),
             nn.Dropout(dropout)#, inplace=True)
         )
-
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 class DeepVO(nn.Module):
     def __init__(self, imsize1, imsize2, batchNorm=True):
         super(DeepVO,self).__init__()
@@ -138,10 +140,16 @@ class DeepVO(nn.Module):
         loss = (100 * angle_loss + translation_loss)
         return loss
     
-        
     def step(self, x, y, optimizer):
         optimizer.zero_grad()
+        x_denormed = denorm(device, x)
+        x.requires_grad = True
         loss = self.get_loss(x, y)
+        loss.backward()
+        x_perturbed = fgsm_attack(x_denormed, 0.1, x.grad.data)
+        perturbed_image_normalized = transforms.Normalize((list(par.img_means)), (list(par.img_stds)))(x_perturbed)
+        
+        loss = self.get_loss(perturbed_image_normalized, y)
         loss.backward()
         if self.clip != None:
             torch.nn.utils.clip_grad_norm(self.rnn.parameters(), self.clip)

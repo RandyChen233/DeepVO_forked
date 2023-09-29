@@ -14,15 +14,13 @@ class Parameters():
 		
 		# Data Preprocessing
 		self.resize_mode = 'rescale'  # choice: 'crop' 'rescale' None
-		# self.img_w = 608   # original size is about 1226
-		self.img_w = 1241
-		# self.img_h = 184   # original size is about 370
-		self.img_h = 376
-		self.img_means =  (0.19007764876619865, 0.15170388157131237, 0.10659445665650864)
-		# self.img_means = (-0.149654208803311, -0.13016755162196275, -0.1357813081459066)
-  
+		self.img_w = 608   
+		# self.img_w = 1241    # original size
+		self.img_h = 184   
+		# self.img_h = 376	# original size
+		#This comes from the original github repo;it's not clear what subset of training data they used but they make the evaluation process very accurate...
+		self.img_means =  (0.19007764876619865, 0.15170388157131237, 0.10659445665650864) 
 		self.img_stds =  (0.2610784009469139, 0.25729316928935814, 0.25163823815039915)
-		# self.img_stds = (0.3153990545465214, 0.31948854360777074, 0.32346405850814824)
 		self.minus_point_5 = True
 
 		self.seq_len = (5, 7)
